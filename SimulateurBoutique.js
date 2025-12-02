@@ -42,122 +42,119 @@ function ajouterproduit() {
   produits.push(data);
   console.table(produits);
 }
-ajouterproduit();
+// ajouterproduit();
 
-// //  ajouterAuPanier
-// let cart = [];
-// function ajouterAuPanier() {
-//   let ID = Number(prompt("enter id produit"));
-//   let prodExist = produits.find((el) => el.id === ID);
-//   if (prodExist) {
-//     // produits.stock=
-//     let quantity = parseFloat(prompt("enter quantity"));
-//     if (quantity > 0 && quantity < prodExist.stock) {
-//       let datapanier = {
-//         productId: ID,
-//         nom: prodExist.nom,
-//         quantity: quantity,
-//         price: prodExist.prix,
-//       };
-//       cart.push(datapanier);
-//       console.table(cart);
-//       return;
-//     } else {
-//       console.log("quantity doit etre s4r men Stock");
-//       return;
-//     }
-//   }
-//   console.log("Erreur : le produit que vous essayez d’ajouter n’existe pas");
-// }
-// function afficherPanier() {
-//   console.log(cart);
-// }
+//  ajouterAuPanier
+let cart = [];
+let cartCompteur = 1;
+function ajouterAuPanier() {
+  let ID = Number(prompt("enter id produit"));
+  let prodExist = produits.find((el) => el.id === ID);
+  if (prodExist) {
+    // produits.stock=
+    let quantity = parseFloat(prompt("enter quantity"));
+    if (quantity > 0 && quantity < prodExist.stock) {
+      let datapanier = {
+        productId: cartCompteur++,
+        nom: prodExist.nom,
+        quantity: quantity,
+        price: prodExist.prix,
+      };
+      cart.push(datapanier);
+      console.table(cart);
+      return;
+    } else {
+      console.log("quantity doit etre s4r men Stock");
+      return;
+    }
+  }
+  console.log("Erreur : le produit que vous essayez d’ajouter n’existe pas");
+}
+function afficherPanier() {
+  console.log(cart);
+}
 
-// function supprimerDuPanier() {
-//   let Id = Number(prompt("enter ID "));
-//   // let arrayFilter = cart.indexOf(Id);
-//   const cartToDelete = cart.find((cart) => cart.productId === Id);
-//   let index = cart.indexOf(cartToDelete);
-//   console.log(index);
+function supprimerDuPanier() {
+  let Id = Number(prompt("enter ID "));
+  // let arrayFilter = cart.indexOf(Id);
+  const cartToDelete = cart.find((cart) => cart.productId === Id);
+  let index = cart.indexOf(cartToDelete);
+  console.log(index);
 
-//   if (index >= 0) {
-//     cart.splice(index, 1);
-//     console.table(cart);
-//     return;
-//   }
-//   console.log("error index < 0");
+  if (index >= 0) {
+    cart.splice(index, 1);
+    console.table(cart);
+    return;
+  }
+  console.log("error index < 0");
 
-//   // console.log(arrayFilter);
-// }
-// // Supprimerproduit();
-// function produistpanier() {
-//   console.log(produits);
-// }
-// //passer commande
-// function passerCommand() {
-//   let total_HT = 0;
-//   for (let i = 0; i < cart.length; i++) {
-//     total_HT = total_HT + cart[i].price * cart[i].quantity;
-//   }
-//   let TVA = total_HT * 0.2;
-//   let TTC = TVA + total_HT;
-//   // console.log(`Total HT : ${total_HT} €`);
-//   // console.log(`TVA (20%) : ${TVA} €`);
-//   // console.log(`Total TTC : ${TTC} €`);
-//   // console.log("Merci pour votre achat !");
-//   console.log(total_HT + "" + " " + TVA);
-// }
-// function updateStockAfterAddToCart() {
-//   let Id = Number(prompt("enter Id : "));
-//   let produit = produits.find((ele) => ele.id === Id);
-//   let item = cart.find((c) => c.id === Id);
+  // console.log(arrayFilter);
+}
+// Supprimerproduit();
+function produistpanier() {
+  console.log(produits);
+}
+//passer commande
+function passerCommand() {
+  let total_HT = 0;
+  for (let i = 0; i < cart.length; i++) {
+    total_HT = total_HT + cart[i].price * cart[i].quantity;
+    // for (el = 0; el < produits.length; el++) {
+    //   if (cart[i].productId === produits[el].id) {
+    //     produits[el].stock = produits[el].stock - cart[i].quantity;
+    //   }
+    // }
+    let TVA = total_HT * 0.2;
+    let TTC = TVA + total_HT;
+    console.log(`Total HT : ${total_HT} €`);
+    console.log(`TVA (20%) : ${TVA} €`);
+    console.log(`Total TTC : ${TTC} €`);
+    console.log("Merci pour votre achat !");
+    // cart = [];
+  }
+}
 
-//   if (produit && item) {
-//     produit.stock = produit.stock - item.quantity;
-//   }
-// }
-
-// // function produistWpanier(){
-
-// // }
-// // passerCommand();
-// let menu = `
-// ==== MENU ====
-// 1. Ajouter un produit 
-// 2. AjouterAuPanier
-// 3. afficherPanier
-// 4. supprimer un produit sur cart
-// 5. passer un Commande
-// 6. affichage new array produit 
-// `;
-// while (true) {
-//   console.log(menu);
-//   const quiter = Number(prompt("ach b4iti dir : "));
-//   if (quiter === 0) {
-//     break;
-//   }
-//   switch (quiter) {
-//     case 0:
-//       break;
-//     case 1:
-//       ajouterproduit();
-//       break;
-//     case 2:
-//       ajouterAuPanier();
-//       break;
-//     case 3:
-//       afficherPanier();
-//       break;
-//     case 4:
-//       supprimerDuPanier();
-//       break;
-//     case 5:
-//       passerCommand();
-//       break;
-//     case 6:
-//       updateStockAfterAddToCart();
-//       break;
-//     default:
-//       break;
-//   }
-// }
+function showProduct() {
+  console.log(produits);
+}
+// passerCommand();
+let menu = `
+==== MENU ====
+1. Ajouter un produit 
+2. AjouterAuPanier
+3. afficherPanier
+4. supprimer un produit sur cart
+5. passer un Commande
+6. showProduct after command
+`;
+while (true) {
+  console.log(menu);
+  const quiter = Number(prompt("ach b4iti dir : "));
+  if (quiter === 0) {
+    break;
+  }
+  switch (quiter) {
+    case 0:
+      break;
+    case 1:
+      ajouterproduit();
+      break;
+    case 2:
+      ajouterAuPanier();
+      break;
+    case 3:
+      afficherPanier();
+      break;
+    case 4:
+      supprimerDuPanier();
+      break;
+    case 5:
+      passerCommand();
+      break;
+    case 6:
+      showProduct();
+      break;
+    default:
+      break;
+  }
+}
